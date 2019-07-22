@@ -5,5 +5,5 @@
   const stock = stockList.reduce(function(sum, current) {
     return sum + current;
   }, 0);
-  Swal.fire('There are ' + stock + ' left!');
+  Swal.fire(stock + ' left!');
 })()
