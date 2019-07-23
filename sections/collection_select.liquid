@@ -1,6 +1,7 @@
 {% assign collection = collections[section.settings.collection_select] %}
+{% assign sorted_products = collection.products | sort_natural: 'title' %}
 <h3>{{ collection.title }}</h3>
-  {% for product in collection.products %}
+  {% for product in sorted_products %}
     {% include 'product_overview', product: product %}
   {% endfor %}
 {% schema %}
