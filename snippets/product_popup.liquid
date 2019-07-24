@@ -1,3 +1,4 @@
+{% assign stock = 0 %}
 {% for variant in product.variants %}
   {% assign stock = stock | plus: variant.inventory_quantity %}
 {% endfor %}
@@ -10,50 +11,54 @@
       <h3 class="product-modal-cart__title">
         <a href="/cart">My Cart</a>
       </h3>
-      <table class="product-modal-cart__table">
-        <thead>
-          <th colspan="2">Prod</th>
-          <th>Price</th>
-          <th>Qty</th>
-          <th>total</th>
-        </thead>
-        <tbody>
-          {% for item in cart.items %}
+      {% if cart.item_count > 0 %}
+        <table class="product-modal-cart__table">
+          <thead>
+            <th colspan="2">Prod</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>total</th>
+          </thead>
+          <tbody>
+            {% for item in cart.items %}
+              <tr>
+                <td>
+                  <a href="{{ item.url | within: collections.all }}">
+                    <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+                  </a>
+                </td>
+                <td>
+                  <a href="{{ item.url }}">{{ item.product.title }}</a>
+                  {{ item.variant.title }}
+                </td>
+                <td>{{ item.price | money }}</td>
+                <td>
+                  {{ item.quantity }}
+                </td>
+                <td>
+                  {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+                  {{ item.line_price | money }}
+                  {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+        <div class="product-modal-cart__summary">
+          <table>
             <tr>
-              <td>
-                <a href="{{ item.url | within: collections.all }}">
-                  <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
-                </a>
-              </td>
-              <td>
-                <a href="{{ item.url }}">{{ item.product.title }}</a>
-                {{ item.variant.title }}
-              </td>
-              <td>{{ item.price | money }}</td>
-              <td>
-                {{ item.quantity }}
-              </td>
-              <td>
-                {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
-                {{ item.line_price | money }}
-                {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
-              </td>
+              <td><strong>Total Items:</strong></td>
+              <td>{{ cart.item_count }}</td>
             </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <div class="product-modal-cart__summary">
-        <table>
-          <tr>
-            <td><strong>Total Items:</strong></td>
-            <td>{{ cart.item_count }}</td>
-          </tr>
-          <tr>
-            <td><strong>Cart Total:</strong></td>
-            <td>{{ cart.total_price | money }}</td>
-          </tr>
-        <table>
-      </div>
+            <tr>
+              <td><strong>Cart Total:</strong></td>
+              <td>{{ cart.total_price | money }}</td>
+            </tr>
+          <table>
+        </div>
+      {% else %}
+        Cart is empty
+      {% endif %}
     <div>
   </div>
 <div>
