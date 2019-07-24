@@ -7,13 +7,7 @@
   </a>
 {% endfor %}
 <h1>{{ product.title }}</h1>
-<form
-  action="/cart/add"
-  method="post"
-  enctype="multipart/form-data"
-  id="AddToCartForm"
-  data-stock-list="{{ product.variants | map: 'inventory_quantity' | json }}"
->
+<form action="/cart/add" method="post" enctype="multipart/form-data" id="AddToCartForm">
   <select name="id" id="productSelect">
     {% for variant in product.variants %}
       {% if variant.available %}
@@ -33,4 +27,4 @@
   <button type="submit" name="add" id="AddToCart">Add to cart</button>
 </form>
 <div>{{ product.description }}</div>
-{{ 'product_popup.js' | asset_url | script_tag }}
+{% include 'product_popup', product: product %}
