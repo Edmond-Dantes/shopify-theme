@@ -1,8 +1,10 @@
 {% assign current_variant = product.selected_or_first_available_variant %}
 {% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+{% assign no_stock_button_class = "" %}
 {% unless product.available %}
   {% assign no_stock_button_class = "add-to-cart-form__button--no-stock" %}
 {% endunless %}
+{% assign stock = 0 %}
 {% for variant in product.variants %}
   {% assign stock = stock | plus: variant.inventory_quantity %}
 {% endfor %}
