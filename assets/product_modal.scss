@@ -1,0 +1,31 @@
+.product-modal__wrapper--hidden {
+  display: none;
+}
+
+.product-modal__header {
+  border-bottom: solid 1px lightgrey;
+}
+
+.product-modal-cart__title {
+  text-align: left;
+}
+
+.product-modal-cart__table {
+  width: 100%;
+  img {
+    width: 3em;
+  }
+}
+
+.product-modal-cart__summary {
+  table {
+    border-top: solid 1px lightgrey;
+    margin-left: auto;
+  }
+  table td {
+    &:first-of-type {
+      text-align: left;
+      padding-right: 1em;
+    }
+  }
+}

@@ -40,6 +40,7 @@
   </button>
 </form>
 <div>{{ product.description }}</div>
+{% include 'product_popup', product: product %}
 {{ 'add_to_cart.js' | asset_url | script_tag }}
 <script>
   console.log('{{ settings.random_title }}');
