@@ -1,0 +1,31 @@
+{% assign collection = collections[section.settings.collection_select] %}
+{% assign sorted_products = collection.products | sort_natural: 'title' %}
+<h3>{{ collection.title }}</h3>
+  {% for product in sorted_products %}
+    {% include 'product_overview', product: product %}
+  {% endfor %}
+{% schema %}
+  {
+    "name": "Select a collection",
+    "settings": [
+      {
+        "type": "collection",
+        "id": "collection_select",
+        "label": "Select a collection",
+        "info": "Products of a selected collection are ordered by title."
+      }
+    ],
+    "presets": [
+      {
+        "name": "test",
+        "category": "test"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
